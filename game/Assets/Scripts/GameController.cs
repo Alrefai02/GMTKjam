@@ -37,7 +37,6 @@ public class GameController : MonoBehaviour
         playerUnit = playerGO.GetComponent<Unit>();
 
         int num = Random.Range(0, 2);
-        print(num);
 
         GameObject enemyGO = Instantiate(enemyPrefab[num], enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
