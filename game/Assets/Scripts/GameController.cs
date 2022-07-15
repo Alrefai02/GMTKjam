@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
+public enum EnemyState {ATTACK, BLOCK, HEAL, BUFF, DEBUFF}
+ 
 public class GameController : MonoBehaviour
 {
+    int attackChance = 60;
+    int enemy = 0;
+
     public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
@@ -17,6 +22,7 @@ public class GameController : MonoBehaviour
     DiceRoll diceRoll;
 
     public BattleState state;
+    public EnemyState enemyState;
 
     // Start is called before the first frame update
     void Start()
@@ -30,14 +36,26 @@ public class GameController : MonoBehaviour
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        int num = Random.Range(0, 2);
+        print(num);
+
+        GameObject enemyGO = Instantiate(enemyPrefab[num], enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
+        
+        if (enemyUnit.unitName == "Jeff")
+        {
+            attackChance = 70;
+            enemy = 1;
+        }
+            
 
         diceRoll = playerGO.GetComponent<DiceRoll>();
 
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
+        enemyState = EnemyState.ATTACK;
+
         PlayerTurn();
     }
 
@@ -62,10 +80,18 @@ public class GameController : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        int damage = diceRoll.Roll(diceRoll.enemyAttackDice);
-        bool isDead = playerUnit.TakeDamage(damage);
+        bool isDead = false;
 
-
+        if (enemyState == EnemyState.ATTACK)
+        {
+            int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
+            isDead = playerUnit.TakeDamage(damage);
+        }
+        else
+        {
+            enemyUnit.block = - diceRoll.Roll(diceRoll.blockList[enemy]);
+        }
+  
         yield return new WaitForSeconds(1f);
 
         if (isDead)
@@ -75,6 +101,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
+            // display intent
             state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
@@ -126,6 +153,15 @@ public class GameController : MonoBehaviour
             return;
 
         StartCoroutine(PlayerHeal());
+    }
+
+    public void EnemyIntent()
+    {
+        int intent = Random.Range(0, 100);
+        if (intent < attackChance)
+            enemyState = EnemyState.ATTACK;
+        else
+            enemyState = EnemyState.BLOCK;
     }
 
 }

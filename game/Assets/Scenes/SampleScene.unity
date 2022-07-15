@@ -153,10 +153,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 698793126859545445, guid: f4ea5c52122714b47b4c50bf2717ba69, type: 3}
-  enemyPrefab: {fileID: 6387485415572265869, guid: 4cc47e45d75b4e14eabaa20dfce6852c, type: 3}
+  enemyPrefab:
+  - {fileID: 6387485415572265869, guid: 4cc47e45d75b4e14eabaa20dfce6852c, type: 3}
+  - {fileID: 6387485415572265869, guid: bfcef03d4fea8544a84e374517ecc4c4, type: 3}
   playerBattleStation: {fileID: 83771559592846140}
   enemyBattleStation: {fileID: 5030646027084005806}
   state: 0
+  enemyState: 0
 --- !u!4 &42741379
 Transform:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
     
     public int currHealth;
     public int maxHealth;
-
+    public int block;
 
     public bool TakeDamage(int dmg)
     {
