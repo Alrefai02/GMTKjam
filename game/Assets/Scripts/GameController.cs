@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public enum EnemyState {ATTACK, BLOCK, HEAL, BUFF, DEBUFF}
@@ -30,6 +31,9 @@ public class GameController : MonoBehaviour
     public Animator animGO;
 
     public GameObject image;
+
+    public TMP_Text playerHP;
+    public TMP_Text enemyHP;
 
 
     // Start is called before the first frame update
@@ -64,6 +68,9 @@ public class GameController : MonoBehaviour
 
         diceRoll = playerGO.GetComponent<DiceRoll>();
 
+        playerHP.text = playerUnit.currHealth + "/" + playerUnit.maxHealth;
+        enemyHP.text = enemyUnit.currHealth + "/" + enemyUnit.maxHealth;
+
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
@@ -77,6 +84,8 @@ public class GameController : MonoBehaviour
     {
         int damage = diceRoll.Roll(diceRoll.attackDice);
         bool isDead = enemyUnit.TakeDamage(damage);
+
+        enemyHP.text = enemyUnit.currHealth + "/" + enemyUnit.maxHealth;
 
         yield return new WaitForSeconds(0.75f);
 
@@ -113,6 +122,8 @@ public class GameController : MonoBehaviour
             image.SetActive(true);
             yield return new WaitForSeconds(0.1f);
             image.SetActive(false);
+
+            playerHP.text = playerUnit.currHealth + "/" + playerUnit.maxHealth;
 
             int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
             isDead = playerUnit.TakeDamage(damage);
