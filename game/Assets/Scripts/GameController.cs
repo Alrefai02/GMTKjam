@@ -232,9 +232,18 @@ public class GameController : MonoBehaviour
     {
         int intent = Random.Range(0, 100);
         if (intent < attackChance)
+        {
             enemyState = EnemyState.ATTACK;
+            blockEnemySprite.SetActive(false);
+            attackEnemySprite.SetActive(true);
+        }
         else
+        {
             enemyState = EnemyState.BLOCK;
+            blockEnemySprite.SetActive(true);
+            attackEnemySprite.SetActive(false);
+        }
+            
     }
     public void NextState()
     {
