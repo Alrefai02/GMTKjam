@@ -49,6 +49,8 @@ MonoBehaviour:
   unitName: square 1
   currHealth: 100
   maxHealth: 100
+  block: 0
+  anim: {fileID: 0}
 --- !u!114 &103075495705447636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,9 +63,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3028787b88691a1408aec49bed0a2187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healDice: 010000000200000003000000040000000500000006000000
+  blockDice: 
   attackDice: 010000000200000003000000040000000500000006000000
-  enemyAttackDice: 010000000200000003000000040000000500000006000000
+  AboodAttackDice: 
+  AboodBlockDice: 
+  jeffAttackDice: 
+  jeffBlockDice: 
+  shawermaAttackDice: 
+  shamermaBuffDice: 
+  shawermaDebuffDice: 
+  shawermaHealDice: 
+  bossDice: 
 --- !u!1 &8285141313803244430
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +113,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8285141313803244430}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

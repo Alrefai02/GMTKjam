@@ -6,7 +6,8 @@ using TMPro;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public enum EnemyState {ATTACK, BLOCK, HEAL, BUFF, DEBUFF}
- 
+public enum PlayerChoice { ATTACK, BLOCK }
+
 [RequireComponent(typeof(Image))]
 
 public class GameController : MonoBehaviour
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
 
     public BattleState state;
     public EnemyState enemyState;
+    public PlayerChoice playerState;
 
     public Animator animGO;
 
@@ -34,6 +36,19 @@ public class GameController : MonoBehaviour
 
     public TMP_Text playerHP;
     public TMP_Text enemyHP;
+
+    public TMP_Text playerMaxHP;
+    public TMP_Text enemyMaxHP;
+
+    public GameObject leftButton;
+    public GameObject rightButton;
+
+    public GameObject attackSprite;
+    public GameObject blockSprite;
+
+    public GameObject attackEnemySprite;
+    public GameObject blockEnemySprite;
+
 
 
     // Start is called before the first frame update
@@ -68,13 +83,17 @@ public class GameController : MonoBehaviour
 
         diceRoll = playerGO.GetComponent<DiceRoll>();
 
-        playerHP.text = playerUnit.currHealth + "/" + playerUnit.maxHealth;
-        enemyHP.text = enemyUnit.currHealth + "/" + enemyUnit.maxHealth;
+        playerHP.text = playerUnit.currHealth + "";
+        enemyHP.text = enemyUnit.currHealth + "";
+
+        playerMaxHP.text = "/" + playerUnit.maxHealth;
+        enemyMaxHP.text = "/" + enemyUnit.maxHealth;
 
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
         enemyState = EnemyState.ATTACK;
+        playerState = PlayerChoice.ATTACK;
         
 
         PlayerTurn();
@@ -85,7 +104,8 @@ public class GameController : MonoBehaviour
         int damage = diceRoll.Roll(diceRoll.attackDice);
         bool isDead = enemyUnit.TakeDamage(damage);
 
-        enemyHP.text = enemyUnit.currHealth + "/" + enemyUnit.maxHealth;
+        enemyHP.text = enemyUnit.currHealth + "";
+        enemyHP.color = Color.black;
 
         yield return new WaitForSeconds(0.75f);
 
@@ -123,14 +143,16 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             image.SetActive(false);
 
-            playerHP.text = playerUnit.currHealth + "/" + playerUnit.maxHealth;
-
             int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
             isDead = playerUnit.TakeDamage(damage);
-            
+
+            playerHP.text = playerUnit.currHealth + "";
+            playerHP.color = Color.black;
+
+
         }
-    
-  
+
+
         yield return new WaitForSeconds(1f);
 
         if (isDead)
@@ -148,7 +170,11 @@ public class GameController : MonoBehaviour
 
         if (enemyState == EnemyState.BLOCK) 
         {
+            int health = enemyUnit.currHealth + enemyUnit.block;
+            enemyHP.text = health + "";
+            enemyHP.color = new Color(0, 0, 255);
             enemyUnit.block = diceRoll.Roll(diceRoll.blockList[enemy]);
+
         }
 
     }
@@ -176,6 +202,9 @@ public class GameController : MonoBehaviour
     {
 
         playerUnit.block = diceRoll.Roll(diceRoll.blockDice);
+        int health = playerUnit.currHealth + playerUnit.block;
+        playerHP.text = health + "" ;
+        playerHP.color = new Color(0, 0, 255, 1);
 
         yield return new WaitForSeconds(2f);
 
@@ -207,5 +236,37 @@ public class GameController : MonoBehaviour
         else
             enemyState = EnemyState.BLOCK;
     }
+    public void NextState()
+    {
+        leftButton.SetActive(true);
+        rightButton.SetActive(false);
+        playerState = PlayerChoice.BLOCK;
+        blockSprite.SetActive(true);
+        attackSprite.SetActive(false);
+
+    }
+
+    public void PrevState()
+    {
+        leftButton.SetActive(false);
+        rightButton.SetActive(true);
+        playerState = PlayerChoice.ATTACK;
+        blockSprite.SetActive(false);
+        attackSprite.SetActive(true);
+    }
+
+    public void onButtonClick()
+    {
+        if (playerState == PlayerChoice.ATTACK)
+        {
+            OnAttackButton();
+        }
+        else
+        {
+            OnBlockButton();
+        }
+    }
+
+
 
 }
