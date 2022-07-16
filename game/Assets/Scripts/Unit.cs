@@ -12,7 +12,20 @@ public class Unit : MonoBehaviour
 
     public bool TakeDamage(int dmg)
     {
-        currHealth -= dmg;
+
+        block -= dmg;
+
+        if (block > 0)
+        { 
+            block = 0;
+            return false;
+        }
+        else
+        {
+            currHealth += block; 
+            block = 0;
+        }
+            
 
         if (currHealth <= 0)
             return true;

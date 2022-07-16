@@ -86,10 +86,7 @@ public class GameController : MonoBehaviour
             int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
             isDead = playerUnit.TakeDamage(damage);
         }
-        else
-        {
-            enemyUnit.block = - diceRoll.Roll(diceRoll.blockList[enemy]);
-        }
+    
   
         yield return new WaitForSeconds(1f);
 
@@ -103,6 +100,12 @@ public class GameController : MonoBehaviour
             // display intent
             state = BattleState.PLAYERTURN;
             PlayerTurn();
+        }
+        EnemyIntent();
+
+        if (enemyState == EnemyState.BLOCK) 
+        {
+            enemyUnit.block = diceRoll.Roll(diceRoll.blockList[enemy]);
         }
 
     }
@@ -126,11 +129,10 @@ public class GameController : MonoBehaviour
         //dialogueText.text = "Choose an action:";
     }
 
-    IEnumerator PlayerHeal()
+    IEnumerator PlayerBlock()
     {
 
-        int heal = diceRoll.Roll(diceRoll.healDice);
-        playerUnit.Heal(heal);
+        playerUnit.block = diceRoll.Roll(diceRoll.blockDice);
 
         yield return new WaitForSeconds(2f);
 
@@ -146,12 +148,12 @@ public class GameController : MonoBehaviour
         StartCoroutine(PlayerAttack());
     }
 
-    public void OnHealButton()
+    public void OnBlockButton()
     {
         if (state != BattleState.PLAYERTURN)
             return;
 
-        StartCoroutine(PlayerHeal());
+        StartCoroutine(PlayerBlock());
     }
 
     public void EnemyIntent()

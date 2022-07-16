@@ -6,7 +6,7 @@ public class DiceRoll : MonoBehaviour
 {
     int[] dice = new int[51];
 
-    public int[] healDice;
+    public int[] blockDice;
     public int[] attackDice;
 
     public int[] AboodAttackDice;
@@ -34,7 +34,7 @@ public class DiceRoll : MonoBehaviour
             dice[i] = i;
         }
 
-        healDice = dice[1..11];
+        blockDice = dice[1..11];
         attackDice = dice[5..12];
 
         AboodAttackDice = dice[2..11];
