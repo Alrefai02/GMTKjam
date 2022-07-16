@@ -172,7 +172,6 @@ public class UIStuff : MonoBehaviour
     {
         if (menuState == MenuState.OPTIONS)
         {
-
             OpenOptions();
         }
     }
