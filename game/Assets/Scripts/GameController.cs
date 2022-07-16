@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public enum EnemyState {ATTACK, BLOCK, HEAL, BUFF, DEBUFF}
  
+[RequireComponent(typeof(Image))]
+
 public class GameController : MonoBehaviour
 {
     int attackChance = 60;
@@ -24,11 +27,19 @@ public class GameController : MonoBehaviour
     public BattleState state;
     public EnemyState enemyState;
 
+    public Animator animGO;
+
+    public GameObject image;
+
+
     // Start is called before the first frame update
     void Start()
     {   
         state = BattleState.START;
         StartCoroutine(SetupBattle());
+
+        image.SetActive(false);
+        
     }
 
     IEnumerator SetupBattle()
@@ -38,9 +49,12 @@ public class GameController : MonoBehaviour
 
         int num = Random.Range(0, 2);
 
-        GameObject enemyGO = Instantiate(enemyPrefab[num], enemyBattleStation);
+        GameObject enemyGO = Instantiate(enemyPrefab[num], enemyBattleStation); //NUM num HERE
         enemyUnit = enemyGO.GetComponent<Unit>();
-        
+
+        //Animation Shinanigans
+        animGO = enemyGO.GetComponent<Animator>();
+
         if (enemyUnit.unitName == "Jeff")
         {
             attackChance = 70;
@@ -54,6 +68,7 @@ public class GameController : MonoBehaviour
 
         state = BattleState.PLAYERTURN;
         enemyState = EnemyState.ATTACK;
+        
 
         PlayerTurn();
     }
@@ -63,18 +78,27 @@ public class GameController : MonoBehaviour
         int damage = diceRoll.Roll(diceRoll.attackDice);
         bool isDead = enemyUnit.TakeDamage(damage);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.75f);
 
         if (isDead)
         {
+            //Animator
+            animGO.SetTrigger("Die");
+
             state = BattleState.WON;
             EndBattle();
         }
         else
         {
+            //Animator
+            animGO.SetTrigger("Take_hit");
+            yield return new WaitForSeconds(0.75f);
+
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
+
         }
+       
     }
 
     IEnumerator EnemyTurn()
@@ -83,8 +107,16 @@ public class GameController : MonoBehaviour
 
         if (enemyState == EnemyState.ATTACK)
         {
+            //Animator
+            animGO.SetTrigger("Attack");
+            yield return new WaitForSeconds(0.85f);
+            image.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            image.SetActive(false);
+
             int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
             isDead = playerUnit.TakeDamage(damage);
+            
         }
     
   

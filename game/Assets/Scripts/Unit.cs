@@ -10,6 +10,13 @@ public class Unit : MonoBehaviour
     public int maxHealth;
     public int block;
 
+    public Animator anim;
+
+    private void Start()
+    {
+        anim = gameObject.GetComponent<Animator>();
+    }
+
     public bool TakeDamage(int dmg)
     {
 
@@ -29,6 +36,8 @@ public class Unit : MonoBehaviour
 
         if (currHealth <= 0)
             return true;
+      
+            
         else
             return false;
     }
