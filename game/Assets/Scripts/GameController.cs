@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
@@ -61,6 +62,7 @@ public class GameController : MonoBehaviour
     public TMP_Text enemyDiceText;
 
     public GameObject winScreen;
+    public GameObject loseScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -210,12 +212,11 @@ public class GameController : MonoBehaviour
         {
             winScreen.SetActive(true);
         }
-        /*else if (state == BattleState.LOST)
+        else if (state == BattleState.LOST)
         {
-            dialogueText.text = "You were defeated.";
-        }*/
+            loseScreen.SetActive(true);
 
-        
+        }
     }
 
     void PlayerTurn()
@@ -393,5 +394,22 @@ public class GameController : MonoBehaviour
         enemyHP.color = new Color(0, 0, 255);
         print("curHealth:" + enemyUnit.currHealth + " block:" + enemyUnit.block + " add:" + health);
         enemyHP.text = health + "";
+    }
+
+    public void TryHarder()
+    {
+        resetStats();
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void GiveUp()
+    {
+        SceneManager.LoadScene("UI");
+    }
+
+    void resetStats()
+    {
+        playerUnit.currHealth = playerUnit.maxHealth;
+        DiceRoll.Instance.resetDice();
     }
 }

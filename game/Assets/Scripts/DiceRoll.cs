@@ -104,4 +104,10 @@ public class DiceRoll : MonoBehaviour
     {
         print(attackDice[0]);
     }
+
+    public void resetDice()
+    {
+        attackDice = dice[5..12];
+        blockDice = dice[1..11];
+    }
 }
