@@ -50,6 +50,9 @@ public class GameController : MonoBehaviour
     public GameObject rightButton;
 
     public GameObject attackSprite;
+    public GameObject nerdAttack;
+    public GameObject gambleAttack;
+
     public GameObject blockSprite;
 
     public GameObject attackEnemySprite;
@@ -72,6 +75,8 @@ public class GameController : MonoBehaviour
 
     bool canHeal = false;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,6 +85,13 @@ public class GameController : MonoBehaviour
         StartCoroutine(SetupBattle());
 
         image.SetActive(false);
+
+        if (diceRoll.attackDice[0] == diceRoll.gamblerDice[0])
+            attackSprite = gambleAttack;
+        else if (diceRoll.attackDice[0] == diceRoll.nerdDice[0])
+            attackSprite = nerdAttack;
+        attackSprite.SetActive(true);
+
     }
 
     IEnumerator SetupBattle()
@@ -108,7 +120,10 @@ public class GameController : MonoBehaviour
             canBuff = true;
             attackChance = 50;
             
+
+
         }
+        
 
 
         diceRoll = playerGO.GetComponent<DiceRoll>();
