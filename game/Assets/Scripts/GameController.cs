@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
     int attackChance = 60;
     int enemy = 0;
 
+    public int num;
+
     public GameObject playerPrefab;
     public GameObject[] enemyPrefab;
 
@@ -29,6 +31,9 @@ public class GameController : MonoBehaviour
     public BattleState state;
     public EnemyState enemyState;
     public PlayerChoice playerState;
+
+    public GameObject playerGO;
+
 
     public Animator animGO;
 
@@ -49,24 +54,30 @@ public class GameController : MonoBehaviour
     public GameObject attackEnemySprite;
     public GameObject blockEnemySprite;
 
+    public GameObject diceTextObject;
+    public TMP_Text diceText;
+
+    public GameObject enemyDiceTextObject;
+    public TMP_Text enemyDiceText;
+
 
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        playerGO = GameObject.FindGameObjectWithTag("Player");
         state = BattleState.START;
         StartCoroutine(SetupBattle());
 
         image.SetActive(false);
-        
     }
 
     IEnumerator SetupBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
+        print(playerUnit.currHealth);
 
-        int num = Random.Range(0, 2);
+        num = Random.Range(0, 2);
 
         GameObject enemyGO = Instantiate(enemyPrefab[num], enemyBattleStation); //NUM num HERE
         enemyUnit = enemyGO.GetComponent<Unit>();
@@ -79,7 +90,7 @@ public class GameController : MonoBehaviour
             attackChance = 70;
             enemy = 1;
         }
-            
+
 
         diceRoll = playerGO.GetComponent<DiceRoll>();
 
@@ -94,14 +105,18 @@ public class GameController : MonoBehaviour
         state = BattleState.PLAYERTURN;
         enemyState = EnemyState.ATTACK;
         playerState = PlayerChoice.ATTACK;
-        
+
 
         PlayerTurn();
     }
 
     IEnumerator PlayerAttack()
     {
+        StartCoroutine(rollPlayerDice());
+        yield return new WaitForSeconds(1f);
         int damage = diceRoll.Roll(diceRoll.attackDice);
+        diceText.text = damage.ToString();
+        yield return new WaitForSeconds(2f);
         bool isDead = enemyUnit.TakeDamage(damage);
 
         enemyHP.text = enemyUnit.currHealth + "";
@@ -127,15 +142,22 @@ public class GameController : MonoBehaviour
             StartCoroutine(EnemyTurn());
 
         }
-       
+        playerState = PlayerChoice.ATTACK;
     }
 
     IEnumerator EnemyTurn()
     {
-        bool isDead = false;
+        enemyHP.text = enemyUnit.currHealth + "";
+        enemyHP.color = Color.black;
 
+        //enemyDiceTextObject.SetActive(false);
+        bool isDead = false;
         if (enemyState == EnemyState.ATTACK)
         {
+            StartCoroutine(rollEnemyDice());
+            yield return new WaitForSeconds(1f);
+            int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
+            enemyDiceText.text = damage.ToString();
             //Animator
             animGO.SetTrigger("Attack");
             yield return new WaitForSeconds(0.85f);
@@ -143,7 +165,8 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             image.SetActive(false);
 
-            int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
+            //int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
+            //print("enemy damage = "+damage);
             isDead = playerUnit.TakeDamage(damage);
 
             playerHP.text = playerUnit.currHealth + "";
@@ -163,19 +186,18 @@ public class GameController : MonoBehaviour
         else
         {
             // display intent
+            ShowIcon();
             state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
+
+        enemyDiceTextObject.SetActive(false);
         EnemyIntent();
 
-        if (enemyState == EnemyState.BLOCK) 
-        {
-            int health = enemyUnit.currHealth + enemyUnit.block;
-            enemyHP.text = health + "";
-            enemyHP.color = new Color(0, 0, 255);
-            enemyUnit.block = diceRoll.Roll(diceRoll.blockList[enemy]);
+        yield return new WaitForSeconds(1f);
 
-        }
+        if (enemyState == EnemyState.BLOCK)
+            StartCoroutine(enemyBlock());
 
     }
 
@@ -200,16 +222,21 @@ public class GameController : MonoBehaviour
 
     IEnumerator PlayerBlock()
     {
-
+        StartCoroutine(rollPlayerDice());
+        yield return new WaitForSeconds(1f);
         playerUnit.block = diceRoll.Roll(diceRoll.blockDice);
         int health = playerUnit.currHealth + playerUnit.block;
-        playerHP.text = health + "" ;
+        diceText.text = playerUnit.block.ToString();
+        print("curHealth:" + playerUnit.currHealth + " block:" + playerUnit.block + " add:" + health);
+        playerHP.text = health + "";
         playerHP.color = new Color(0, 0, 255, 1);
 
         yield return new WaitForSeconds(2f);
 
         state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
+
+        playerState = PlayerChoice.ATTACK;
     }
 
     public void OnAttackButton()
@@ -230,6 +257,7 @@ public class GameController : MonoBehaviour
 
     public void EnemyIntent()
     {
+
         int intent = Random.Range(0, 100);
         if (intent < attackChance)
         {
@@ -243,7 +271,7 @@ public class GameController : MonoBehaviour
             blockEnemySprite.SetActive(true);
             attackEnemySprite.SetActive(false);
         }
-            
+
     }
     public void NextState()
     {
@@ -276,6 +304,91 @@ public class GameController : MonoBehaviour
         }
     }
 
+    IEnumerator rollPlayerDice()
+    {
+        leftButton.SetActive(false);
+        rightButton.SetActive(false);
+        blockSprite.SetActive(false);
+        attackSprite.SetActive(false);
+        diceTextObject.SetActive(true);
+
+        int[] diceRoll;
+
+        if (playerState == PlayerChoice.ATTACK)
+        {
+            diceRoll = DiceRoll.Instance.attackDice;
+        }
+        else
+        {
+            diceRoll = DiceRoll.Instance.blockDice;
+        }
 
 
+        for (int i = 0; i < diceRoll.Length; i++)
+        {
+            int num = Random.Range(0, diceRoll.Length);
+            diceText.text = diceRoll[num].ToString();
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    IEnumerator rollEnemyDice()
+    {
+        blockEnemySprite.SetActive(false);
+        attackEnemySprite.SetActive(false);
+        enemyDiceTextObject.SetActive(true);
+
+        int[] diceRoll;
+
+        if (num == 0)
+        {
+            if (enemyState == EnemyState.ATTACK)
+            {
+                diceRoll = DiceRoll.Instance.AboodAttackDice;
+            }
+            else
+            {
+                diceRoll = DiceRoll.Instance.AboodBlockDice;
+            }
+        }
+        else
+        {
+            if (enemyState == EnemyState.ATTACK)
+            {
+                diceRoll = DiceRoll.Instance.jeffAttackDice;
+            }
+            else
+            {
+                diceRoll = DiceRoll.Instance.jeffBlockDice;
+            }
+        }
+
+        for (int i = 0; i < diceRoll.Length; i++)
+        {
+            int number = Random.Range(0, diceRoll.Length);
+            enemyDiceText.text = diceRoll[number].ToString();
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    void ShowIcon()
+    {
+        leftButton.SetActive(false);
+        rightButton.SetActive(true);
+        blockSprite.SetActive(false);
+        attackSprite.SetActive(true);
+        diceTextObject.SetActive(false);
+    }
+
+    IEnumerator enemyBlock()
+    {
+        StartCoroutine(rollEnemyDice());
+        yield return new WaitForSeconds(1f);
+        enemyUnit.block = diceRoll.Roll(diceRoll.blockList[enemy]);
+        enemyDiceText.text = enemyUnit.block.ToString();
+        int health = enemyUnit.currHealth + enemyUnit.block;
+        enemyHP.color = new Color(0, 0, 255);
+        print("curHealth:" + enemyUnit.currHealth + " block:" + enemyUnit.block + " add:" + health);
+        enemyHP.text = health + "";
+    }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class DiceRoll : MonoBehaviour
 {
@@ -8,6 +10,17 @@ public class DiceRoll : MonoBehaviour
 
     public int[] blockDice;
     public int[] attackDice;
+
+    //first round powerups
+    public int[] gamblerDice = { 1, 1, 1, 15, 15 };
+    public int[] nerdDice = {7,8,9};
+
+
+    //second round powerups
+    public bool addictdice = false;
+    public bool gymBroDice = false;
+
+
 
     public int[] AboodAttackDice;
     public int[] AboodBlockDice;
@@ -25,17 +38,25 @@ public class DiceRoll : MonoBehaviour
     public List<int[]> attackList = new List<int[]>();
     public List<int[]> blockList = new List<int[]>();
 
+    public static DiceRoll Instance { get; private set; }
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
 
     private void Start()
     {
+        print("Start buddy");
         for (int i = 0; i <= 50; i++)
         {
             dice[i] = i;
         }
 
-        blockDice = dice[1..11];
         attackDice = dice[5..12];
+        blockDice = dice[1..11];
 
         AboodAttackDice = dice[2..11];
         AboodBlockDice = dice[1..11];
@@ -66,6 +87,21 @@ public class DiceRoll : MonoBehaviour
         return roll;
     }
 
+    public void setGambler()
+    {
+        attackDice = gamblerDice;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void setNerd()
+    {
+        attackDice = nerdDice;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 
 
+    private void Update()
+    {
+        print(attackDice[0]);
+    }
 }

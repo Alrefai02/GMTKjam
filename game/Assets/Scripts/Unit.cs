@@ -12,6 +12,10 @@ public class Unit : MonoBehaviour
 
     public Animator anim;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     private void Start()
     {
         anim = gameObject.GetComponent<Animator>();
