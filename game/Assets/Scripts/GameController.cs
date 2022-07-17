@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour
     public GameObject enemyDiceTextObject;
     public TMP_Text enemyDiceText;
 
-
+    public GameObject winScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -203,16 +203,16 @@ public class GameController : MonoBehaviour
 
     void EndBattle()
     {
-        /*if (state == BattleState.WON)
+        if (state == BattleState.WON)
         {
-            dialogueText.text = "You won the battle!";
+            winScreen.SetActive(true);
         }
-        else if (state == BattleState.LOST)
+        /*else if (state == BattleState.LOST)
         {
             dialogueText.text = "You were defeated.";
         }*/
 
-        print("aaa");
+        
     }
 
     void PlayerTurn()
