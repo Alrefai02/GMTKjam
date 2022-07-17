@@ -130,7 +130,7 @@ public class GameController : MonoBehaviour
             animGO.SetTrigger("Die");
 
             state = BattleState.WON;
-            EndBattle();
+            StartCoroutine(EndBattle());
         }
         else
         {
@@ -181,7 +181,7 @@ public class GameController : MonoBehaviour
         if (isDead)
         {
             state = BattleState.LOST;
-            EndBattle();
+            StartCoroutine(EndBattle());
         }
         else
         {
@@ -201,8 +201,11 @@ public class GameController : MonoBehaviour
 
     }
 
-    void EndBattle()
+    IEnumerator EndBattle()
     {
+
+        yield return new WaitForSeconds(0.5f);
+
         if (state == BattleState.WON)
         {
             winScreen.SetActive(true);

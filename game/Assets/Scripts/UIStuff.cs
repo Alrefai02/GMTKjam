@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public enum MenuState { START, OPTIONS, EXIT}
 public enum OptionsState {RES, FUL, VOL }
@@ -14,6 +15,7 @@ public class UIStuff : MonoBehaviour
     public GameObject mainMenu;
     public GameObject optionsMenu;
 
+    public GameObject backButton;
     public GameObject resolution;
     public GameObject fullscreen;
     public GameObject volume;
@@ -22,6 +24,8 @@ public class UIStuff : MonoBehaviour
     public Text button;
     public Text optionsText;
     public Text title;
+    public Text title2;
+
 
     public Dropdown resDropdown;
 
@@ -116,10 +120,12 @@ public class UIStuff : MonoBehaviour
     }
 
     void OptionsMenu()
-    {
+    {   
+
         button.text = "Options";
         rightArrow.SetActive(true);
         leftArrow.SetActive(true);
+        
     }
 
     void ExitMenu()
@@ -132,10 +138,12 @@ public class UIStuff : MonoBehaviour
     public void OpenOptions()
     {
         title.text = "Options";
+        title2.text = "Options";
         mainMenu.SetActive(false);
         optionsMenu.SetActive(true);
         optionsState = OptionsState.RES;
         ResMenu();
+        backButton.SetActive(true);
     }
 
     void ResMenu()
@@ -175,6 +183,14 @@ public class UIStuff : MonoBehaviour
 
             OpenOptions();
         }
+        else if(menuState == MenuState.START)
+        {
+            startButtonClick();
+        }
+        else
+        {
+            exitButtonClick();
+        }
     }
 
     public void SetVolume(float volumeSlider)
@@ -192,4 +208,27 @@ public class UIStuff : MonoBehaviour
         Resolution resolution = resolutions[resIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+
+    public void backButtonClick()
+    {
+        title.text = "Game";
+        title2.text = "Game";
+        mainMenu.SetActive(true);
+        optionsMenu.SetActive(false);
+        optionsState = OptionsState.RES;
+        menuState = MenuState.START;
+        StartMenu();
+        backButton.SetActive(false);
+    }
+
+    public void startButtonClick()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void exitButtonClick()
+    {
+        Application.Quit();
+    }
+
 }
