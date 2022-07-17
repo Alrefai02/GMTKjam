@@ -75,6 +75,8 @@ public class GameController : MonoBehaviour
 
     bool canHeal = false;
 
+    public GameObject effect;
+
 
 
     // Start is called before the first frame update
@@ -193,7 +195,7 @@ public class GameController : MonoBehaviour
             StartCoroutine(rollEnemyDice());
             yield return new WaitForSeconds(1f);
             int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
-            enemyDiceText.text = damage.ToString();
+            enemyDiceText.text = (damage+buffInc).ToString();
             //Animator
             animGO.SetTrigger("Attack");
             yield return new WaitForSeconds(0.85f);
@@ -439,7 +441,8 @@ public class GameController : MonoBehaviour
             int inc = diceRoll.Roll(diceRoll.shamermaBuffDice);
             enemyDiceText.text = inc.ToString();
             buffInc += inc;
-            print(buffInc);
+            GameObject stuff = Instantiate(effect, transform);
+            Destroy(stuff, 200f);
 
         }
         

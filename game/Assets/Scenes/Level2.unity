@@ -1272,7 +1272,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: 4ce5fd629a465984fabb03f3327a81be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1319,8 +1319,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.3416, y: -0.3416}
-  m_SizeDelta: {x: 283.7746, y: 283.7746}
+  m_AnchoredPosition: {x: 0.34159, y: -0.000005722}
+  m_SizeDelta: {x: 241.05, y: 241.048}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &300409406
 MonoBehaviour:
@@ -1951,7 +1951,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.3416, y: -0.3416}
+  m_AnchoredPosition: {x: 0.3416, y: -26}
   m_SizeDelta: {x: 283.7746, y: 283.7746}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &527651523
@@ -4844,6 +4844,7 @@ MonoBehaviour:
   loseScreen: {fileID: 430190734}
   button: {fileID: 1046705750}
   buttonInt: {fileID: 0}
+  effect: {fileID: 3696694696218624183, guid: cce5470379f21264485d8fff1cfb4ef9, type: 3}
 --- !u!114 &1424773057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6082,7 +6083,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8bbdfd776568bb9448346b358186a828, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6a65dab01aafb11449167d6a76dc5039, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

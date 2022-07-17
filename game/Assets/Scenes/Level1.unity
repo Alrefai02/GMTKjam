@@ -639,6 +639,7 @@ MonoBehaviour:
   loseScreen: {fileID: 85459009}
   button: {fileID: 8609889965665360311}
   buttonInt: {fileID: 0}
+  effect: {fileID: 3696694696218624183, guid: cce5470379f21264485d8fff1cfb4ef9, type: 3}
 --- !u!114 &42741379
 MonoBehaviour:
   m_ObjectHideFlags: 0
