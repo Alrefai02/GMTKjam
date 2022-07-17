@@ -64,8 +64,8 @@ public class DiceRoll : MonoBehaviour
         jeffAttackDice = dice[4..11];
         jeffBlockDice = dice[1..11];
 
-        shawermaAttackDice = dice[1..6];
-        shamermaBuffDice = dice[1..6];
+        shawermaAttackDice = dice[4..8];
+        shamermaBuffDice = dice[1..3];
         shawermaDebuffDice = dice[1..6];
         shawermaHealDice = dice[1..6];
 
@@ -83,7 +83,7 @@ public class DiceRoll : MonoBehaviour
 
     public int Roll(int[] dice)
     {
-        int roll = dice[Random.Range(0, 5)];
+        int roll = dice[Random.Range(0, dice.Length)];
         return roll;
     }
 

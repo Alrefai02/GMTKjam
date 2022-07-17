@@ -635,6 +635,8 @@ MonoBehaviour:
   enemyDiceText: {fileID: 1391760792}
   winScreen: {fileID: 1314716564}
   loseScreen: {fileID: 85459009}
+  button: {fileID: 8609889965665360311}
+  buttonInt: {fileID: 0}
 --- !u!114 &42741379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6044,7 +6046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: square 1
-  currHealth: 1
+  currHealth: 100
   maxHealth: 100
   block: 0
   anim: {fileID: 0}
@@ -6095,7 +6097,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8609889965665360311}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 

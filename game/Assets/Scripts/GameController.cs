@@ -64,6 +64,14 @@ public class GameController : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
 
+    public GameObject button;
+    public Button buttonInt;
+
+    int buffInc = 0;
+    bool canBuff = false;
+
+    bool canHeal = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +84,9 @@ public class GameController : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
+        buttonInt = button.GetComponent<Button>();
+
+
         playerUnit = playerGO.GetComponent<Unit>();
         print(playerUnit.currHealth);
 
@@ -91,6 +102,12 @@ public class GameController : MonoBehaviour
         {
             attackChance = 70;
             enemy = 1;
+        }
+        else if(enemyUnit.unitName == "Shawarma")
+        {
+            canBuff = true;
+            attackChance = 50;
+            
         }
 
 
@@ -149,6 +166,8 @@ public class GameController : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+        buttonInt.enabled = false;
+
         enemyHP.text = enemyUnit.currHealth + "";
         enemyHP.color = Color.black;
 
@@ -169,7 +188,7 @@ public class GameController : MonoBehaviour
 
             //int damage = diceRoll.Roll(diceRoll.attackList[enemy]);
             //print("enemy damage = "+damage);
-            isDead = playerUnit.TakeDamage(damage);
+            isDead = playerUnit.TakeDamage(damage+buffInc);
 
             playerHP.text = playerUnit.currHealth + "";
             playerHP.color = Color.black;
@@ -221,6 +240,7 @@ public class GameController : MonoBehaviour
 
     void PlayerTurn()
     {
+        buttonInt.enabled = true;
         //dialogueText.text = "Choose an action:";
     }
 
@@ -298,6 +318,7 @@ public class GameController : MonoBehaviour
 
     public void onButtonClick()
     {
+        buttonInt.enabled = false;
         if (playerState == PlayerChoice.ATTACK)
         {
             OnAttackButton();
@@ -388,12 +409,25 @@ public class GameController : MonoBehaviour
     {
         StartCoroutine(rollEnemyDice());
         yield return new WaitForSeconds(1f);
-        enemyUnit.block = diceRoll.Roll(diceRoll.blockList[enemy]);
-        enemyDiceText.text = enemyUnit.block.ToString();
-        int health = enemyUnit.currHealth + enemyUnit.block;
-        enemyHP.color = new Color(0, 0, 255);
-        print("curHealth:" + enemyUnit.currHealth + " block:" + enemyUnit.block + " add:" + health);
-        enemyHP.text = health + "";
+
+        if (!canBuff && !canHeal)
+        {
+            enemyUnit.block = diceRoll.Roll(diceRoll.blockList[enemy]);
+            enemyDiceText.text = enemyUnit.block.ToString();
+            int health = enemyUnit.currHealth + enemyUnit.block;
+            enemyHP.color = new Color(0, 0, 255);
+            print("curHealth:" + enemyUnit.currHealth + " block:" + enemyUnit.block + " add:" + health);
+            enemyHP.text = health + "";
+        }
+        else if (canBuff)
+        {
+            int inc = diceRoll.Roll(diceRoll.shamermaBuffDice);
+            enemyDiceText.text = inc.ToString();
+            buffInc += inc;
+            print(buffInc);
+
+        }
+        
     }
 
     public void TryHarder()
