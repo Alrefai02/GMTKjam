@@ -12,7 +12,7 @@ public class DiceRoll : MonoBehaviour
     public int[] attackDice;
 
     //first round powerups
-    public int[] gamblerDice = { 1, 1, 10, 15, 15 };
+    public int[] gamblerDice = { 1, 1, 10, 20, 20 };
     public int[] nerdDice = {7,8,9};
 
 
@@ -122,7 +122,6 @@ public class DiceRoll : MonoBehaviour
     public void setDrugAddict()
     {
         // block becomes heal
-        attackDice = nerdDice;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
