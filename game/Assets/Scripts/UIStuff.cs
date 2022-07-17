@@ -22,6 +22,8 @@ public class UIStuff : MonoBehaviour
     public Text button;
     public Text optionsText;
     public Text title;
+    public Text title2;
+
 
     public Dropdown resDropdown;
 
@@ -132,6 +134,7 @@ public class UIStuff : MonoBehaviour
     public void OpenOptions()
     {
         title.text = "Options";
+        title2.text = "Options";
         mainMenu.SetActive(false);
         optionsMenu.SetActive(true);
         optionsState = OptionsState.RES;
