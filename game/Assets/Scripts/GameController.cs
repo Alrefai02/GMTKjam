@@ -72,6 +72,9 @@ public class GameController : MonoBehaviour
     public GameObject button;
     public Button buttonInt;
 
+    public AudioSource DiceSound;
+    public AudioClip DiceRollSound;
+
     int buffInc = 0;
     bool canBuff = false;
 
@@ -79,7 +82,7 @@ public class GameController : MonoBehaviour
 
     public GameObject effect;
 
-    bool isHealing = false;
+    
     bool isGymBro = false;
 
     bool finalBoss = false;
@@ -102,7 +105,7 @@ public class GameController : MonoBehaviour
             attackSprite = nerdAttack;
         attackSprite.SetActive(true);
 
-        if (isHealing)
+        if (DiceRoll.Instance.isHealing)
             blockSprite = healSprite;
 
     }
@@ -262,7 +265,7 @@ public class GameController : MonoBehaviour
             if (finalBoss)
             {
                 winScreen.SetActive(true);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(3f);
                 SceneManager.LoadScene(0);
             }
             else
@@ -285,7 +288,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator PlayerBlock()
     {
-        if (!isHealing)
+        if (!DiceRoll.Instance.isHealing)
         {
             StartCoroutine(rollPlayerDice());
             yield return new WaitForSeconds(1f);
@@ -376,6 +379,7 @@ public class GameController : MonoBehaviour
 
     public void onButtonClick()
     {
+        DiceSound.PlayOneShot(DiceRollSound);
         buttonInt.enabled = false;
         if (playerState == PlayerChoice.ATTACK)
         {
@@ -513,7 +517,7 @@ public class GameController : MonoBehaviour
 
     public void drugAddict()
     {
-        isHealing = true;
+        DiceRoll.Instance.isHealing = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

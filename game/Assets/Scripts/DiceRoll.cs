@@ -40,7 +40,7 @@ public class DiceRoll : MonoBehaviour
 
     public static DiceRoll Instance { get; private set; }
 
-
+    public bool isHealing = false; 
     private void Awake()
     {
         Instance = this;

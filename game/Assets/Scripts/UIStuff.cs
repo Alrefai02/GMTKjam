@@ -211,8 +211,8 @@ public class UIStuff : MonoBehaviour
 
     public void backButtonClick()
     {
-        title.text = "Game";
-        title2.text = "Game";
+        title.text = "Brogress";
+        title2.text = "Brogress";
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
         optionsState = OptionsState.RES;
