@@ -53,7 +53,9 @@ public class GameController : MonoBehaviour
     public GameObject nerdAttack;
     public GameObject gambleAttack;
 
+
     public GameObject blockSprite;
+    public GameObject healSprite;
 
     public GameObject attackEnemySprite;
     public GameObject blockEnemySprite;
@@ -80,6 +82,8 @@ public class GameController : MonoBehaviour
     bool isHealing = false;
     bool isGymBro = false;
 
+    bool finalBoss = false;
+
 
 
 
@@ -98,6 +102,9 @@ public class GameController : MonoBehaviour
             attackSprite = nerdAttack;
         attackSprite.SetActive(true);
 
+        if (isHealing)
+            blockSprite = healSprite;
+
     }
 
     IEnumerator SetupBattle()
@@ -106,7 +113,7 @@ public class GameController : MonoBehaviour
 
 
         playerUnit = playerGO.GetComponent<Unit>();
-        print(playerUnit.currHealth);
+        
 
         num = Random.Range(0, 2);
 
@@ -125,11 +132,13 @@ public class GameController : MonoBehaviour
         {
             canBuff = true;
             attackChance = 50;
-            
-
-
         }
-        
+        else if (enemyUnit.unitName == "Boss")
+        {
+            attackChance = 100;
+            finalBoss = true;
+        }
+
 
 
         diceRoll = playerGO.GetComponent<DiceRoll>();
@@ -180,7 +189,7 @@ public class GameController : MonoBehaviour
 
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
-
+            diceRoll.attackList[enemy] = diceRoll.bossDice;
         }
         playerState = PlayerChoice.ATTACK;
     }
@@ -245,12 +254,21 @@ public class GameController : MonoBehaviour
 
     IEnumerator EndBattle()
     {
-
+        
         yield return new WaitForSeconds(0.5f);
 
         if (state == BattleState.WON)
         {
-            winScreen.SetActive(true);
+            if (finalBoss)
+            {
+                winScreen.SetActive(true);
+                yield return new WaitForSeconds(1f);
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                winScreen.SetActive(true);
+            }
         }
         else if (state == BattleState.LOST)
         {
@@ -274,7 +292,6 @@ public class GameController : MonoBehaviour
             playerUnit.block = diceRoll.Roll(diceRoll.blockDice);
             int health = playerUnit.currHealth + playerUnit.block;
             diceText.text = playerUnit.block.ToString();
-            print("curHealth:" + playerUnit.currHealth + " block:" + playerUnit.block + " add:" + health);
             playerHP.text = health + "";
             playerHP.color = new Color(0, 0, 255, 1);
 
@@ -457,7 +474,6 @@ public class GameController : MonoBehaviour
             enemyDiceText.text = enemyUnit.block.ToString();
             int health = enemyUnit.currHealth + enemyUnit.block;
             enemyHP.color = new Color(0, 0, 255);
-            print("curHealth:" + enemyUnit.currHealth + " block:" + enemyUnit.block + " add:" + health);
             enemyHP.text = health + "";
         }
         else if (canBuff)

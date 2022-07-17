@@ -226,7 +226,7 @@ RectTransform:
   m_GameObject: {fileID: 71757653}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.1786664, y: 2.1786664, z: 2.1786664}
+  m_LocalScale: {x: 1.3697711, y: 1.3697711, z: 1.3697711}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 176175113}
@@ -234,7 +234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -23}
+  m_AnchoredPosition: {x: 0, y: -7}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &71757655
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0b9d07cef36c5d540b0e33b8b2ced91a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52d7500bb0f5b4843b97a4481774285a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1047,7 +1047,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The Nerd
+  m_text: The Gym Bro
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b15786ac80e2bb0418da0c52db291ac3, type: 2}
   m_sharedMaterial: {fileID: 6124517810224199772, guid: b15786ac80e2bb0418da0c52db291ac3, type: 2}
@@ -1151,7 +1151,7 @@ RectTransform:
   m_GameObject: {fileID: 255861364}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0041909, y: 1.0041909, z: 1.0041909}
+  m_LocalScale: {x: 1.3947208, y: 1.3947208, z: 1.3947208}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 657917905}
@@ -1182,7 +1182,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e6dd4d8f8e2f9e4468ce2ac8b159133c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a3e39553ab6184f45a41cc75cb30ccc8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1502,8 +1502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Your worst memory is leaving your mothers womb, upgrade your attack die
-    and play it safe
+  m_text: Never miss leg day, get a +2 modifier on every roll going forward
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b15786ac80e2bb0418da0c52db291ac3, type: 2}
   m_sharedMaterial: {fileID: 6124517810224199772, guid: b15786ac80e2bb0418da0c52db291ac3, type: 2}
@@ -1696,7 +1695,7 @@ RectTransform:
   m_Children:
   - {fileID: 1293869347}
   m_Father: {fileID: 943120350}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2012,8 +2011,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You are a fan of living on the edge, replace your attack die with a powerful
-    but risky die
+  m_text: You can only feel pain, replace your block die with a heal die
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b15786ac80e2bb0418da0c52db291ac3, type: 2}
   m_sharedMaterial: {fileID: 6124517810224199772, guid: b15786ac80e2bb0418da0c52db291ac3, type: 2}
@@ -2773,7 +2771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &738879605
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2789,8 +2787,8 @@ RectTransform:
   - {fileID: 703251137}
   - {fileID: 657917905}
   - {fileID: 176175113}
-  m_Father: {fileID: 943120350}
-  m_RootOrder: 10
+  m_Father: {fileID: 1539320206}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2870,7 +2868,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015259, y: -105}
+  m_AnchoredPosition: {x: -40.5, y: -105}
   m_SizeDelta: {x: 235.6716, y: 48.4503}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &754727489
@@ -2893,7 +2891,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The Gambler
+  m_text: The  Drug  Addict
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b15786ac80e2bb0418da0c52db291ac3, type: 2}
   m_sharedMaterial: {fileID: 6124517810224199772, guid: b15786ac80e2bb0418da0c52db291ac3, type: 2}
@@ -2956,7 +2954,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -9.770935, w: 3.9083252}
+  m_margin: {x: 0, y: 0, z: -93.305786, w: 3.9083252}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3435,8 +3433,8 @@ RectTransform:
   - {fileID: 1633066681}
   - {fileID: 1258719024}
   - {fileID: 2118754349}
-  - {fileID: 738879605}
   - {fileID: 430190735}
+  - {fileID: 1539320206}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4834,13 +4832,14 @@ MonoBehaviour:
   nerdAttack: {fileID: 504778150}
   gambleAttack: {fileID: 300409404}
   blockSprite: {fileID: 770556151}
+  healSprite: {fileID: 0}
   attackEnemySprite: {fileID: 25113023}
   blockEnemySprite: {fileID: 2130448482}
   diceTextObject: {fileID: 1432875309}
   diceText: {fileID: 1432875310}
   enemyDiceTextObject: {fileID: 1642758664}
   enemyDiceText: {fileID: 1642758666}
-  winScreen: {fileID: 738879604}
+  winScreen: {fileID: 1539320205}
   loseScreen: {fileID: 430190734}
   button: {fileID: 1046705750}
   buttonInt: {fileID: 0}
@@ -5038,6 +5037,83 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1539320205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1539320206}
+  - component: {fileID: 1539320208}
+  - component: {fileID: 1539320207}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1539320206
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539320205}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 738879605}
+  m_Father: {fileID: 943120350}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1539320207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539320205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.65882355}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1539320208
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539320205}
+  m_CullTransparentMesh: 1
 --- !u!1 &1555385709
 GameObject:
   m_ObjectHideFlags: 0

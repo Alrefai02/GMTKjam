@@ -12,7 +12,7 @@ public class DiceRoll : MonoBehaviour
     public int[] attackDice;
 
     //first round powerups
-    public int[] gamblerDice = { 1, 1, 1, 15, 15 };
+    public int[] gamblerDice = { 1, 1, 10, 15, 15 };
     public int[] nerdDice = {7,8,9};
 
 
@@ -56,13 +56,13 @@ public class DiceRoll : MonoBehaviour
         }
 
         attackDice = dice[5..12];
-        blockDice = dice[1..11];
+        blockDice = dice[6..11];
 
-        AboodAttackDice = dice[2..11];
-        AboodBlockDice = dice[1..11];
+        AboodAttackDice = dice[2..9];
+        AboodBlockDice = dice[1..9];
 
-        jeffAttackDice = dice[4..11];
-        jeffBlockDice = dice[1..11];
+        jeffAttackDice = dice[4..10];
+        jeffBlockDice = dice[1..10];
 
         shawermaAttackDice = dice[4..8];
         shamermaBuffDice = dice[1..3];
@@ -124,12 +124,6 @@ public class DiceRoll : MonoBehaviour
         // block becomes heal
         attackDice = nerdDice;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-
-    private void Update()
-    {
-        print(attackDice[0]);
     }
 
     public void resetDice()
