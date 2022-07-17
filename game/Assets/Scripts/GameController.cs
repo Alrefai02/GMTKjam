@@ -77,6 +77,10 @@ public class GameController : MonoBehaviour
 
     public GameObject effect;
 
+    bool isHealing = false;
+    bool isGymBro = false;
+
+
 
 
     // Start is called before the first frame update
@@ -263,21 +267,41 @@ public class GameController : MonoBehaviour
 
     IEnumerator PlayerBlock()
     {
-        StartCoroutine(rollPlayerDice());
-        yield return new WaitForSeconds(1f);
-        playerUnit.block = diceRoll.Roll(diceRoll.blockDice);
-        int health = playerUnit.currHealth + playerUnit.block;
-        diceText.text = playerUnit.block.ToString();
-        print("curHealth:" + playerUnit.currHealth + " block:" + playerUnit.block + " add:" + health);
-        playerHP.text = health + "";
-        playerHP.color = new Color(0, 0, 255, 1);
+        if (!isHealing)
+        {
+            StartCoroutine(rollPlayerDice());
+            yield return new WaitForSeconds(1f);
+            playerUnit.block = diceRoll.Roll(diceRoll.blockDice);
+            int health = playerUnit.currHealth + playerUnit.block;
+            diceText.text = playerUnit.block.ToString();
+            print("curHealth:" + playerUnit.currHealth + " block:" + playerUnit.block + " add:" + health);
+            playerHP.text = health + "";
+            playerHP.color = new Color(0, 0, 255, 1);
 
-        yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(2f);
 
-        state = BattleState.ENEMYTURN;
-        StartCoroutine(EnemyTurn());
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
 
-        playerState = PlayerChoice.ATTACK;
+            playerState = PlayerChoice.ATTACK;
+        }
+        else
+        {
+            StartCoroutine(rollPlayerDice());
+            yield return new WaitForSeconds(1f);
+            playerUnit.block = diceRoll.Roll(diceRoll.blockDice);
+            playerUnit.currHealth += playerUnit.block;
+            diceText.text = playerUnit.block.ToString();
+            playerHP.text = playerUnit.currHealth.ToString();
+            //playerHP.color = new Color(0, 0, 255, 1);
+
+            yield return new WaitForSeconds(2f);
+
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+
+            playerState = PlayerChoice.ATTACK;
+        }
     }
 
     public void OnAttackButton()
@@ -463,5 +487,17 @@ public class GameController : MonoBehaviour
     {
         playerUnit.currHealth = playerUnit.maxHealth;
         DiceRoll.Instance.resetDice();
+    }
+
+    public void gymBro()
+    {
+        DiceRoll.Instance.setGymBro();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void drugAddict()
+    {
+        isHealing = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

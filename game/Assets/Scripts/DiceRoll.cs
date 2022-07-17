@@ -99,6 +99,33 @@ public class DiceRoll : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void setGymBro()
+    {
+        // same as enemy, + 1
+        int[] newAttackDice = new int[attackDice.Length];
+        int[] newBlockDice = new int[blockDice.Length];
+
+        for (int i = 0; i < attackDice.Length; i++)
+        {
+            newAttackDice[i] = attackDice[i] + 2;
+        }
+        for (int i = 0; i < blockDice.Length; i++)
+        {
+            newBlockDice[i] = blockDice[i] + 2;
+        }
+
+        attackDice = newAttackDice;
+        blockDice = newBlockDice;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void setDrugAddict()
+    {
+        // block becomes heal
+        attackDice = nerdDice;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
 
     private void Update()
     {
